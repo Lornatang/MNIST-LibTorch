@@ -22,7 +22,7 @@ using namespace std;
 int main(int argc, const char *argv[]) {
   if (argc < 2) {
     cerr << "Usage: ./detect <path-to-image>\n";
-    cerr << "Example: ./detect ../data/image.png ../assets/model_best.pth\n";
+    cerr << "Example: ./detect ../data/image.png ../checkpoint/model_best.pth\n";
     return 0;
   }
 
@@ -33,7 +33,7 @@ int main(int argc, const char *argv[]) {
   if (argv[2])
     torch::load(model, argv[2]);
   else
-    torch::load(model, "../assets/model_best.pth");
+    torch::load(model, "../checkpoint/model_best.pth");
   // check model is loaded.
   AT_ASSERT(model != nullptr);
 

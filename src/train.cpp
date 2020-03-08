@@ -25,7 +25,7 @@ auto main(int argc, const char *argv[]) -> int {
     return 0;
   }
 
-  const char *checkpoint_path = "../assets";
+  const char *checkpoint_path = "../checkpoint";
   if (access(checkpoint_path, 0))
     mkdir(checkpoint_path, 0755);
 

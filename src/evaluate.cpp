@@ -39,7 +39,7 @@ auto main(int argc, const char *argv[]) -> int {
   torch::Device device = select_device();
 
   auto model = std::make_shared<Net>();
-  torch::load(model, "../assets/model_best.pth");
+  torch::load(model, "../checkpoint/model_best.pth");
   model->to(device);
 
   // Load dataset
