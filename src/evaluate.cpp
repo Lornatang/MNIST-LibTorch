@@ -50,7 +50,7 @@ auto main(int argc, const char *argv[]) -> int {
           .map(torch::data::transforms::Stack<>());
   const size_t test_dataset_size = test_dataset.size().value();
   auto test_loader =
-      torch::data::make_data_loader(std::move(test_dataset), batch_size);
+      torch::data::make_data_loader(std::move(test_dataset), batch_size * 20);
 
   result = evaluate(model, device, *test_loader, test_dataset_size);
 }
