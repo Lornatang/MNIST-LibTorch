@@ -26,12 +26,12 @@ add_executable(train
 target_link_libraries(train ${TORCH_LIBRARIES} ${OpenCV_LIBS})
 set_property(TARGET train PROPERTY CXX_STANDARD 20)
 
-add_executable(eval
-        src/evaluate.cpp
+add_executable(test
+        src/test.cpp
         src/utils.cpp
         )
-target_link_libraries(eval ${TORCH_LIBRARIES} ${OpenCV_LIBS})
-set_property(TARGET eval PROPERTY CXX_STANDARD 20)
+target_link_libraries(test ${TORCH_LIBRARIES} ${OpenCV_LIBS})
+set_property(TARGET test PROPERTY CXX_STANDARD 20)
 
 add_executable(detect
         src/detect.cpp

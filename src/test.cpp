@@ -21,8 +21,8 @@
 
 auto main(int argc, const char *argv[]) -> int {
   if (argc < 2) {
-    std::cerr << "Usage: ./eval <data-to-path>\n";
-    std::cerr << "Example: ./detect ../data\n";
+    std::cerr << "Usage: ./test <data-to-path>\n";
+    std::cerr << "Example: ./test ../data\n";
     return 0;
   }
   // Where to find the MNIST dataset.

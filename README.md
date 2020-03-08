@@ -29,7 +29,7 @@ $ ./train ../data
 #### Inference
 ```bash
 $ cd <repo>/build
-$ ./eval ../data
+$ ./test ../data
 ```
 
 #### Detect image
