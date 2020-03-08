@@ -29,7 +29,7 @@ int main(int argc, const char *argv[]) {
   // choice GPU or CPU
   torch::Device device = select_device();
 
-  auto model = std::make_shared<Net>();
+  auto model = std::make_shared<LeNet>();
   if (argv[2])
     torch::load(model, argv[2]);
   else

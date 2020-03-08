@@ -17,7 +17,7 @@
 #include "../include/utils.h"
 #include <torch/script.h>
 
-double classifier(cv::Mat &image, const std::shared_ptr<Net> &model,
+double classifier(cv::Mat &image, const std::shared_ptr<LeNet> &model,
                   torch::Device device) {
   // convert imag to tensor
   torch::Tensor image_tensor =

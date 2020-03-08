@@ -54,7 +54,7 @@ auto main(int argc, const char *argv[]) -> int {
   // choice GPU or CPU
   torch::Device device = select_device();
 
-  auto model = std::make_shared<Net>();
+  auto model = std::make_shared<LeNet>();
   model->to(device);
 
   // Load dataset

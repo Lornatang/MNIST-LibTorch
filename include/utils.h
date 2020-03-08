@@ -30,7 +30,7 @@
 torch::Device select_device();
 
 template <typename DataLoader>
-double train(size_t epoch, std::shared_ptr<Net> model, torch::Device device,
+double train(size_t epoch, std::shared_ptr<LeNet> model, torch::Device device,
              DataLoader &data_loader, torch::optim::Optimizer &optimizer,
              size_t dataset_size) {
   // set train mode
@@ -59,7 +59,7 @@ double train(size_t epoch, std::shared_ptr<Net> model, torch::Device device,
 }
 
 template <typename DataLoader>
-std::vector<double> evaluate(std::shared_ptr<Net> model, torch::Device device,
+std::vector<double> evaluate(std::shared_ptr<LeNet> model, torch::Device device,
                              DataLoader &data_loader, size_t dataset_size) {
   torch::NoGradGuard no_grad;
   model->eval();
@@ -91,7 +91,7 @@ std::vector<double> evaluate(std::shared_ptr<Net> model, torch::Device device,
   return result;
 }
 
-double classifier(cv::Mat &image, const std::shared_ptr<Net> &model,
+double classifier(cv::Mat &image, const std::shared_ptr<LeNet> &model,
                   torch::Device device);
 
 #endif // UTILS_H
