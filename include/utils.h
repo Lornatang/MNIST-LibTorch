@@ -29,13 +29,16 @@
 
 torch::Device select_device();
 
-template <typename DataLoader>
-double train(size_t epoch, std::shared_ptr<LeNet> model, torch::Device device,
-             DataLoader &data_loader, torch::optim::Optimizer &optimizer,
+template<typename DataLoader>
+double train(size_t epoch,
+             std::shared_ptr<LeNet> model,
+             torch::Device device,
+             DataLoader &data_loader,
+             torch::optim::Optimizer &optimizer,
              size_t dataset_size) {
   // set train mode
   model->train();
-  size_t batch_index = 0;
+  size_t batch_index = 1;
   // Iterate data loader to yield batches from the dataset
   for (auto &batch : data_loader) {
     auto images = batch.data.to(device);
@@ -51,16 +54,20 @@ double train(size_t epoch, std::shared_ptr<LeNet> model, torch::Device device,
     optimizer.step();
 
     if (++batch_index % 10 == 0) {
-      std::printf("\rTrain Epoch: %ld [%5ld/%5ld] Loss: %.4f", epoch,
-                  batch_index * batch.data.size(0), dataset_size,
+      std::printf("\rTrain Epoch: %ld [%5ld/%5ld] Loss: %.4f",
+                  epoch,
+                  batch_index * batch.data.size(0),
+                  dataset_size,
                   loss.template item<float>());
     }
   }
 }
 
-template <typename DataLoader>
-std::vector<double> evaluate(std::shared_ptr<LeNet> model, torch::Device device,
-                             DataLoader &data_loader, size_t dataset_size) {
+template<typename DataLoader>
+std::vector<double> evaluate(std::shared_ptr<LeNet> model,
+                             torch::Device device,
+                             DataLoader &data_loader,
+                             size_t dataset_size) {
   torch::NoGradGuard no_grad;
   model->eval();
 
@@ -74,16 +81,14 @@ std::vector<double> evaluate(std::shared_ptr<LeNet> model, torch::Device device,
     auto data = batch.data.to(device);
     auto targets = batch.target.to(device);
     auto output = model->forward(data);
-    loss += torch::nll_loss(output, targets, {}, torch::Reduction::Sum)
-                .template item<double>();
+    loss += torch::nll_loss(output, targets, {}, torch::Reduction::Sum).template item<double>();
     auto pred = output.argmax(1);
     correct += pred.eq(targets).sum().template item<int64_t>();
   }
   loss /= dataset_size;
   accuracy = static_cast<double>(correct) / dataset_size;
 
-  std::printf("\nTest set: Average loss: %.4f | Accuracy: %.3f\n", loss,
-              accuracy);
+  std::printf("\nTest set: Average loss: %.4f | Accuracy: %.3f\n", loss, accuracy);
 
   result.push_back(loss);
   result.push_back(accuracy);
@@ -91,7 +96,6 @@ std::vector<double> evaluate(std::shared_ptr<LeNet> model, torch::Device device,
   return result;
 }
 
-double classifier(cv::Mat &image, const std::shared_ptr<LeNet> &model,
-                  torch::Device device);
+double classifier(cv::Mat &image, const std::shared_ptr<LeNet> &model, torch::Device device);
 
 #endif // UTILS_H

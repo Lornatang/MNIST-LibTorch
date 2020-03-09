@@ -20,11 +20,8 @@
 double classifier(cv::Mat &image, const std::shared_ptr<LeNet> &model,
                   torch::Device device) {
   // convert imag to tensor
-  torch::Tensor image_tensor =
-      torch::from_blob(image.data,
-                       {1, image.rows, image.cols, image.channels()},
-                       torch::kByte)
-          .to(device);
+  torch::Tensor image_tensor;
+  image_tensor = torch::from_blob(image.data, {1, image.rows, image.cols, image.channels()}, torch::kByte).to(device);
   image_tensor = image_tensor.permute({0, 3, 1, 2}).to(device);
   image_tensor = image_tensor.toType(torch::kFloat).to(device);
   image_tensor = image_tensor.div(255).to(device);
